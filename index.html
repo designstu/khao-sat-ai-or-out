@@ -404,7 +404,31 @@ textarea::placeholder { color: #c5c1ba; }
 #success-screen p { color: var(--muted); font-size: 15px; line-height: 1.7; }
 #success-screen strong { color: var(--ink); }
 
-/* DECORATIVE FLOAT SHAPES */
+/* WORKSHOP TAG */
+.hero-workshop-tag {
+  display: inline-flex; align-items: center;
+  font-size: 13.5px; font-weight: 500;
+  color: rgba(255,255,255,0.0);
+  background: rgba(255,255,255,0.0);
+  margin: 10px 0 18px;
+  animation: fadeUp 0.6s 0.15s ease both;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* DEADLINE NOTE */
+.deadline-note {
+  display: flex; align-items: center; gap: 16px;
+  background: rgba(255,183,3,0.08);
+  border: 1.5px solid rgba(255,183,3,0.3);
+  border-radius: 14px; padding: 18px 22px;
+  margin: 4px 0 24px;
+  animation: fadeUp 0.5s ease both;
+}
+.deadline-icon { font-size: 28px; flex-shrink: 0; }
+.deadline-title { font-size: 12px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.deadline-sub { font-size: 15px; font-weight: 500; color: var(--ink); }
+.deadline-sub strong { color: #c87800; font-weight: 700; }
 .float-shape {
   position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
   opacity: 0.4; filter: blur(1px);
@@ -445,19 +469,11 @@ textarea::placeholder { color: #c5c1ba; }
 
 <!-- ═══════ HERO ═══════ -->
 <div class="hero">
-  <div class="hero-eyebrow">
-    <span class="pill pill-rose"><span class="pulse"></span>Sau Workshop · 22/04/2026</span>
-    <span class="pill pill-amber">⏱ 3–5 phút</span>
-  </div>
   <h1 class="hero-title">Khảo Sát<br>Ý Kiến <em>Giảng Viên</em></h1>
+  <div class="hero-workshop-tag">Sau Workshop: AI or OUT – đã tổ chức ngày 22/04/2026</div>
   <p class="hero-sub">Phản hồi của thầy/cô giúp chúng tôi cải thiện chất lượng các Workshop AI tiếp theo. Mọi ý kiến đều <strong>có giá trị</strong>.</p>
-  <div class="hero-stats">
-    <div class="stat-chip"><span class="icon">🎯</span> Workshop: AI or OUT</div>
-    <div class="stat-chip"><span class="icon">📍</span> Phòng C202</div>
-    <div class="stat-chip"><span class="icon">📅</span> Tiếp theo: 06/05/2026</div>
-  </div>
   <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
-  <div class="progress-label"><span id="progressText">0 / 8 câu đã trả lời</span></div>
+  <div class="progress-label"><span id="progressText">0 / 9 câu đã trả lời</span></div>
 </div>
 
 <!-- ═══════ FORM ═══════ -->
@@ -654,7 +670,7 @@ textarea::placeholder { color: #c5c1ba; }
   <div class="card" id="card-q6">
     <div class="q-head">
       <div class="q-badge">6</div>
-      <div class="q-title">Bạn có muốn tham gia Workshop tiếp theo không? <span class="req">*</span></div>
+      <div class="q-title">Thầy/cô có muốn tham gia Workshop tiếp theo không? <span class="req">*</span></div>
     </div>
     <p class="q-desc">Workshop tiếp theo dự kiến tổ chức ngày 06/05/2026.</p>
     <div class="pill-grid">
@@ -677,6 +693,29 @@ textarea::placeholder { color: #c5c1ba; }
     <p class="q-desc">Thầy/cô muốn thay đổi hoặc bổ sung gì cho buổi Workshop tiếp theo (dự kiến 06/05/2026)?</p>
     <textarea id="q7" name="q7" placeholder="Chia sẻ suy nghĩ của thầy/cô tại đây..."></textarea>
     <div class="hint">💡 Gợi ý: nội dung muốn học thêm · công cụ AI muốn khám phá · thời lượng phù hợp hơn · cải thiện về tổ chức...</div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="card" id="card-q8">
+    <div class="q-head">
+      <div class="q-badge">8</div>
+      <div class="q-title">Thầy/cô có muốn BTC tạo 1 group Zalo hỗ trợ? <span class="req">*</span></div>
+    </div>
+    <p class="q-desc">Group Zalo để BTC chia sẻ tài liệu, hỗ trợ và cập nhật thông tin các Workshop tiếp theo.</p>
+    <div class="pill-grid">
+      <div class="r-pill"><input type="radio" name="q8" id="q8-yes" value="Có, muốn tham gia group"><label for="q8-yes">✅ Có, muốn tham gia</label></div>
+      <div class="r-pill"><input type="radio" name="q8" id="q8-no" value="Không cần thiết"><label for="q8-no">🙅 Không cần thiết</label></div>
+    </div>
+    <div class="err">Vui lòng chọn một lựa chọn.</div>
+  </div>
+
+  <!-- DEADLINE NOTE -->
+  <div class="deadline-note">
+    <span class="deadline-icon">⏰</span>
+    <div>
+      <div class="deadline-title">Thời gian nhận đóng góp ý kiến</div>
+      <div class="deadline-sub">Đến hết <strong>12:00 ngày 28/04/2026</strong></div>
+    </div>
   </div>
 
   <!-- SUBMIT -->
@@ -774,7 +813,7 @@ textarea::placeholder { color: #c5c1ba; }
   });
 
   /* ── PROGRESS ── */
-  const REQUIRED = ['ai_level','q1','q2','q3a','q3b','q4','q5','q6'];
+  const REQUIRED = ['ai_level','q1','q2','q3a','q3b','q4','q5','q6','q8'];
   function updateProgress() {
     const filled = REQUIRED.filter(n => document.querySelector(`input[name="${n}"]:checked`)).length;
     document.getElementById('progressBar').style.width = `${(filled/REQUIRED.length)*100}%`;
@@ -788,7 +827,6 @@ textarea::placeholder { color: #c5c1ba; }
     })
   );
 
-  /* ── VALIDATE ── */
   function validate() {
     let ok = true;
     REQUIRED.forEach(name => {
@@ -825,6 +863,7 @@ textarea::placeholder { color: #c5c1ba; }
       q5:  document.querySelector('input[name="q5"]:checked')?.value || '',
       q6:  document.querySelector('input[name="q6"]:checked')?.value || '',
       q7:  document.getElementById('q7').value.trim(),
+      q8:  document.querySelector('input[name="q8"]:checked')?.value || '',
     };
 
     if (GOOGLE_SCRIPT_URL.includes('THAY_THE_BANG_URL')) {
@@ -850,7 +889,7 @@ textarea::placeholder { color: #c5c1ba; }
     document.getElementById('surveyForm').style.display = 'none';
     document.getElementById('success-screen').style.display = 'block';
     document.getElementById('progressBar').style.width = '100%';
-    document.getElementById('progressText').textContent = '8 / 8 câu đã trả lời ✓';
+    document.getElementById('progressText').textContent = '9 / 9 câu đã trả lời ✓';
     window.scrollTo({top:0, behavior:'smooth'});
   }
 </script>
