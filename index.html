@@ -4,478 +4,698 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Khảo Sát Ý Kiến Giảng Viên – Workshop AI or OUT</title>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --primary: #1a1a2e;
-    --accent: #e94560;
-    --accent2: #f5a623;
-    --surface: #ffffff;
-    --surface2: #f8f7f4;
-    --border: #e8e4dd;
-    --text: #1a1a2e;
-    --text-muted: #7a7a8c;
-    --success: #27ae60;
-    --radius: 16px;
-  }
+:root {
+  --ink: #0f0e17;
+  --paper: #fffcf5;
+  --card: #ffffff;
+  --rose: #ff4d6d;
+  --amber: #ffb703;
+  --teal: #06d6a0;
+  --sky: #4cc9f0;
+  --muted: #8b8a94;
+  --border: #ede9df;
+  --r: 20px;
+  --shadow: 0 2px 24px rgba(15,14,23,0.07);
+  --shadow-lg: 0 12px 48px rgba(15,14,23,0.13);
+}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    font-family: 'Be Vietnam Pro', sans-serif;
-    background: var(--surface2);
-    color: var(--text);
-    min-height: 100vh;
-  }
+html { scroll-behavior: smooth; }
 
-  /* ── HEADER ── */
-  .hero {
-    background: var(--primary);
-    color: white;
-    padding: 48px 24px 56px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 280px; height: 280px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(233,69,96,0.35) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -40px; left: 10%;
-    width: 200px; height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(245,166,35,0.2) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
-  .badge {
-    display: inline-block;
-    background: rgba(233,69,96,0.2);
-    border: 1px solid rgba(233,69,96,0.5);
-    color: #ff7a93;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 5px 14px;
-    border-radius: 20px;
-    margin-bottom: 18px;
-  }
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(26px, 5vw, 40px);
-    line-height: 1.25;
-    margin-bottom: 10px;
-  }
-  .hero h1 span { color: var(--accent); }
-  .hero-meta {
-    display: flex; flex-wrap: wrap; gap: 18px;
-    margin-top: 18px;
-    font-size: 13px; color: rgba(255,255,255,0.65);
-  }
-  .hero-meta span { display: flex; align-items: center; gap: 6px; }
-  .hero-meta .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-  /* ── PROGRESS ── */
-  .progress-wrap { background: rgba(255,255,255,0.08); height: 4px; margin-top: 28px; border-radius: 4px; overflow: hidden; }
-  .progress-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 4px; width: 0%; transition: width 0.4s ease; }
+/* ══════════════════════ ANIMATED BG ══════════════════════ */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 80% 10%, rgba(255,77,109,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 10% 80%, rgba(6,214,160,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 50% 50%, rgba(76,201,240,0.04) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
 
-  /* ── CONTAINER ── */
-  .container { max-width: 720px; margin: 0 auto; padding: 32px 20px 60px; }
+/* ══════════════════════ HERO ══════════════════════ */
+.hero {
+  position: relative; z-index: 1;
+  padding: 0 24px;
+  max-width: 760px;
+  margin: 0 auto;
+  padding-top: 56px;
+  padding-bottom: 8px;
+}
 
-  /* ── CARD ── */
-  .card {
-    background: var(--surface);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    padding: 28px 28px 24px;
-    margin-bottom: 20px;
-    position: relative;
-    transition: box-shadow 0.2s, transform 0.2s;
-  }
-  .card:hover { box-shadow: 0 8px 32px rgba(26,26,46,0.08); }
-  .card.active { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(233,69,96,0.08); }
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 24px;
+  animation: fadeUp 0.6s ease both;
+}
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: 99px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.pill-rose { background: rgba(255,77,109,0.1); color: var(--rose); border: 1px solid rgba(255,77,109,0.2); }
+.pill-amber { background: rgba(255,183,3,0.12); color: #c87800; border: 1px solid rgba(255,183,3,0.25); }
+.pulse {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--rose);
+  box-shadow: 0 0 0 0 rgba(255,77,109,0.4);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255,77,109,0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(255,77,109,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,77,109,0); }
+}
 
-  .q-number {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 28px; height: 28px;
-    background: var(--primary);
-    color: white; font-size: 12px; font-weight: 700;
-    border-radius: 8px; margin-bottom: 12px;
-  }
-  .q-title { font-weight: 700; font-size: 16px; margin-bottom: 4px; color: var(--primary); }
-  .q-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
+.hero-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 6vw, 62px);
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+.hero-title em {
+  font-style: italic; color: var(--rose);
+  position: relative;
+}
+.hero-title em::after {
+  content: '';
+  position: absolute; bottom: 2px; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--rose), var(--amber));
+  border-radius: 2px;
+  transform: scaleX(0); transform-origin: left;
+  animation: lineIn 0.8s 0.8s ease forwards;
+}
+@keyframes lineIn { to { transform: scaleX(1); } }
 
-  /* ── STAR RATING ── */
-  .star-section { margin-top: 4px; }
-  .star-labels { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px; }
-  .star-labels span { max-width: 120px; text-align: center; line-height: 1.4; }
-  .star-labels span:first-child { text-align: left; }
-  .star-labels span:last-child { text-align: right; }
+.hero-sub {
+  font-size: 15px; color: var(--muted); line-height: 1.7;
+  max-width: 520px;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+.hero-sub strong { color: var(--ink); font-weight: 600; }
 
-  .stars {
-    display: flex; gap: 8px; justify-content: center;
-    flex-direction: row-reverse;
-  }
-  .stars input { display: none; }
-  .stars label {
-    font-size: 34px; cursor: pointer; color: #ddd;
-    transition: color 0.15s, transform 0.15s;
-    user-select: none;
-  }
-  .stars label:hover,
-  .stars label:hover ~ label,
-  .stars input:checked ~ label { color: var(--accent2); transform: scale(1.15); }
-  .stars label:active { transform: scale(0.95); }
+.hero-stats {
+  display: flex; flex-wrap: wrap; gap: 12px;
+  margin-top: 28px;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+.stat-chip {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--card); border: 1px solid var(--border);
+  padding: 8px 14px; border-radius: 99px;
+  font-size: 12.5px; font-weight: 500; color: var(--ink);
+  box-shadow: var(--shadow);
+}
+.stat-chip .icon { font-size: 14px; }
 
-  .star-value {
-    text-align: center; margin-top: 8px;
-    font-size: 12px; font-weight: 600; color: var(--text-muted);
-    min-height: 18px; transition: color 0.2s;
-  }
+/* PROGRESS */
+.progress-track {
+  height: 3px; background: var(--border);
+  margin: 36px 0 0; border-radius: 2px; overflow: hidden;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--rose), var(--amber), var(--teal));
+  background-size: 200% 100%;
+  width: 0%; border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  animation: shimmer 3s linear infinite;
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
 
-  /* ── DIVIDER ── */
-  .divider { height: 1px; background: var(--border); margin: 20px 0 20px; }
+.progress-label {
+  text-align: right; font-size: 11px; color: var(--muted);
+  margin-top: 6px; font-weight: 500;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
 
-  /* ── PREREQ ── */
-  .prereq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  @media (max-width: 480px) { .prereq-grid { grid-template-columns: 1fr; } }
+/* DIVIDER */
+.section-divider {
+  display: flex; align-items: center; gap: 16px;
+  margin: 40px 0 28px;
+  animation: fadeUp 0.5s ease both;
+}
+.section-divider span {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted); white-space: nowrap;
+}
+.section-divider::before, .section-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
 
-  .radio-pill input { display: none; }
-  .radio-pill label {
-    display: block; padding: 10px 14px;
-    border: 1.5px solid var(--border); border-radius: 10px;
-    font-size: 13.5px; cursor: pointer;
-    transition: all 0.15s; text-align: center;
-  }
-  .radio-pill input:checked + label {
-    border-color: var(--accent);
-    background: rgba(233,69,96,0.06);
-    color: var(--accent); font-weight: 600;
-  }
-  .radio-pill label:hover { border-color: #bbb; background: var(--surface2); }
+/* ══════════════════════ CONTAINER ══════════════════════ */
+.container {
+  max-width: 760px; margin: 0 auto;
+  padding: 32px 24px 80px;
+  position: relative; z-index: 1;
+}
 
-  /* ── TEXTAREA ── */
-  textarea {
-    width: 100%; min-height: 110px; resize: vertical;
-    border: 1.5px solid var(--border); border-radius: 10px;
-    padding: 14px; font-size: 14px; font-family: inherit;
-    color: var(--text); background: var(--surface2);
-    transition: border-color 0.15s, box-shadow 0.15s;
-    line-height: 1.6;
-  }
-  textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(233,69,96,0.08); background: #fff; }
-  textarea::placeholder { color: #b0aec0; }
+/* ══════════════════════ CARDS ══════════════════════ */
+.card {
+  background: var(--card);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  padding: 32px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.2s;
+  animation: fadeUp 0.5s ease both;
+  position: relative; overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--rose), var(--amber));
+  opacity: 0; transition: opacity 0.3s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.card:hover::before { opacity: 1; }
+.card.has-error { border-color: var(--rose); }
+.card.has-error::before { opacity: 1; }
 
-  /* ── SUBMIT ── */
-  .submit-wrap { text-align: center; margin-top: 32px; }
-  .btn-submit {
-    background: var(--primary);
-    color: white; border: none;
-    padding: 16px 48px; border-radius: 12px;
-    font-size: 15px; font-weight: 700; font-family: inherit;
-    cursor: pointer; letter-spacing: 0.3px;
-    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 4px 18px rgba(26,26,46,0.18);
-  }
-  .btn-submit:hover { background: var(--accent); box-shadow: 0 8px 28px rgba(233,69,96,0.28); transform: translateY(-2px); }
-  .btn-submit:active { transform: translateY(0); }
-  .btn-submit:disabled { background: #aaa; cursor: not-allowed; transform: none; box-shadow: none; }
-  .submit-note { font-size: 12px; color: var(--text-muted); margin-top: 12px; }
+/* Staggered card animations */
+.card:nth-child(1) { animation-delay: 0.05s; }
+.card:nth-child(2) { animation-delay: 0.1s; }
+.card:nth-child(3) { animation-delay: 0.15s; }
+.card:nth-child(4) { animation-delay: 0.2s; }
+.card:nth-child(5) { animation-delay: 0.25s; }
+.card:nth-child(6) { animation-delay: 0.3s; }
+.card:nth-child(7) { animation-delay: 0.35s; }
+.card:nth-child(8) { animation-delay: 0.4s; }
+.card:nth-child(9) { animation-delay: 0.45s; }
 
-  /* ── SUCCESS ── */
-  #success-screen {
-    display: none; text-align: center;
-    background: var(--surface); border-radius: var(--radius);
-    border: 1px solid var(--border); padding: 56px 32px;
-    margin-bottom: 20px;
-  }
-  .success-icon {
-    width: 72px; height: 72px;
-    background: rgba(39,174,96,0.1); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 36px; margin: 0 auto 20px;
-  }
-  #success-screen h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
-  #success-screen p { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-  /* ── ERROR ── */
-  .error-msg { color: var(--accent); font-size: 12px; margin-top: 6px; display: none; }
-  .card.has-error .error-msg { display: block; }
-  .card.has-error { border-color: var(--accent); }
+/* Question header */
+.q-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 8px; }
+.q-badge {
+  flex-shrink: 0;
+  min-width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ink); color: white;
+  font-size: 12px; font-weight: 700;
+  border-radius: 10px;
+  margin-top: 2px;
+}
+.q-badge.emoji { background: var(--paper); border: 1px solid var(--border); font-size: 16px; }
+.q-title {
+  font-size: 16px; font-weight: 700; line-height: 1.4;
+  color: var(--ink); flex: 1;
+}
+.req { color: var(--rose); }
+.q-desc {
+  font-size: 13.5px; color: var(--muted); line-height: 1.65;
+  margin: 10px 0 22px; padding-left: 46px;
+}
 
-  /* ── LOADING ── */
-  .spinner {
-    display: inline-block; width: 18px; height: 18px;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-top-color: white; border-radius: 50%;
-    animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 8px;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
+/* ══════════════════════ INPUTS ══════════════════════ */
+.field-group { margin-bottom: 14px; }
+.field-label {
+  display: block; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 7px;
+}
 
-  /* ── MISC ── */
-  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
-  .required { color: var(--accent); }
+input[type="text"], input[type="email"] {
+  width: 100%; padding: 12px 16px;
+  border: 1.5px solid var(--border); border-radius: 12px;
+  font-size: 14px; font-family: inherit; color: var(--ink);
+  background: var(--paper);
+  transition: all 0.18s; outline: none;
+}
+input[type="text"]:focus, input[type="email"]:focus {
+  border-color: var(--rose);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(255,77,109,0.08);
+}
+input::placeholder { color: #c5c1ba; }
 
-  input[type="text"], input[type="email"] {
-    width: 100%; padding: 11px 14px;
-    border: 1.5px solid var(--border); border-radius: 10px;
-    font-size: 14px; font-family: inherit; color: var(--text);
-    background: var(--surface2); transition: all 0.15s;
-  }
-  input[type="text"]:focus, input[type="email"]:focus {
-    outline: none; border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(233,69,96,0.08); background: #fff;
-  }
+.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 500px) { .input-grid { grid-template-columns: 1fr; } }
 
-  .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  @media (max-width: 500px) { .input-row { grid-template-columns: 1fr; } }
+/* DIVIDER thin */
+.thin-line { height: 1px; background: var(--border); margin: 22px 0; }
 
-  .config-banner {
-    background: #fff8e1; border: 1.5px solid #ffc107;
-    border-radius: 10px; padding: 14px 18px;
-    font-size: 13px; line-height: 1.6; margin-bottom: 24px;
-    color: #856404;
-  }
-  .config-banner strong { color: #533f03; }
-  .config-banner code { background: rgba(0,0,0,0.07); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+/* ══════════════════════ RADIO PILLS ══════════════════════ */
+.pill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 480px) { .pill-grid { grid-template-columns: 1fr; } }
+
+.r-pill input { display: none; }
+.r-pill label {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px 16px;
+  border: 1.5px solid var(--border); border-radius: 12px;
+  font-size: 13.5px; font-weight: 500; cursor: pointer;
+  transition: all 0.18s; text-align: center;
+  background: var(--paper);
+  user-select: none;
+}
+.r-pill label:hover { border-color: #bbb; background: #fff; transform: translateY(-1px); }
+.r-pill input:checked + label {
+  border-color: var(--rose);
+  background: rgba(255,77,109,0.06);
+  color: var(--rose); font-weight: 600;
+  box-shadow: 0 0 0 3px rgba(255,77,109,0.08);
+}
+
+/* ══════════════════════ STARS ══════════════════════ */
+.star-wrap { padding-left: 46px; }
+.star-endpoints {
+  display: flex; justify-content: space-between;
+  font-size: 11.5px; color: var(--muted); margin-bottom: 12px; line-height: 1.4;
+}
+.star-endpoints span:last-child { text-align: right; }
+
+.stars {
+  display: flex; gap: 6px; justify-content: center;
+  flex-direction: row-reverse; margin-bottom: 8px;
+}
+.stars input { display: none; }
+.stars label {
+  font-size: 38px; cursor: pointer; color: #e0dbd0;
+  transition: color 0.12s, transform 0.12s;
+  user-select: none; line-height: 1;
+}
+.stars label:hover,
+.stars label:hover ~ label,
+.stars input:checked ~ label {
+  color: var(--amber);
+}
+.stars label:hover { transform: scale(1.2) rotate(-5deg); }
+.stars input:checked + label { transform: scale(1.1); }
+
+.star-feedback {
+  text-align: center; min-height: 20px;
+  font-size: 12.5px; font-weight: 600;
+  transition: all 0.2s; color: var(--muted);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.star-feedback .dot-score {
+  display: inline-flex; gap: 3px;
+}
+.star-feedback .dot-score span {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border); transition: background 0.15s;
+}
+
+/* ══════════════════════ TEXTAREA ══════════════════════ */
+textarea {
+  width: 100%; min-height: 120px; resize: vertical;
+  border: 1.5px solid var(--border); border-radius: 12px;
+  padding: 14px 16px; font-size: 14px; font-family: inherit;
+  color: var(--ink); background: var(--paper);
+  transition: all 0.18s; outline: none; line-height: 1.65;
+}
+textarea:focus {
+  border-color: var(--rose); background: #fff;
+  box-shadow: 0 0 0 4px rgba(255,77,109,0.08);
+}
+textarea::placeholder { color: #c5c1ba; }
+.hint {
+  font-size: 12px; color: var(--muted); margin-top: 8px; line-height: 1.6;
+  padding: 10px 14px; background: var(--paper); border-radius: 8px;
+  border-left: 3px solid var(--border);
+}
+
+/* ERROR */
+.err { color: var(--rose); font-size: 12px; font-weight: 500; margin-top: 8px; display: none; }
+.card.has-error .err { display: block; }
+
+/* ══════════════════════ SUBMIT ══════════════════════ */
+.submit-area { text-align: center; padding: 16px 0 8px; }
+.btn-submit {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  background: var(--ink); color: white;
+  border: none; padding: 17px 52px; border-radius: 14px;
+  font-size: 15px; font-weight: 700; font-family: inherit;
+  cursor: pointer; letter-spacing: 0.2px;
+  transition: all 0.22s;
+  box-shadow: 0 4px 20px rgba(15,14,23,0.22), 0 1px 0 rgba(255,255,255,0.1) inset;
+  position: relative; overflow: hidden;
+}
+.btn-submit::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--rose), #c23152);
+  opacity: 0; transition: opacity 0.22s;
+}
+.btn-submit:hover::before { opacity: 1; }
+.btn-submit:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(255,77,109,0.35); }
+.btn-submit:active { transform: translateY(-1px); }
+.btn-submit:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-submit:disabled::before { opacity: 0; }
+.btn-submit span { position: relative; z-index: 1; }
+.btn-label { position: relative; z-index: 1; }
+
+.submit-note {
+  font-size: 12px; color: var(--muted); margin-top: 14px;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.submit-note::before { content: '🔒'; font-size: 13px; }
+
+/* ══════════════════════ SPINNER ══════════════════════ */
+.spin {
+  display: inline-block; width: 17px; height: 17px;
+  border: 2.5px solid rgba(255,255,255,0.3);
+  border-top-color: white; border-radius: 50%;
+  animation: rotate 0.65s linear infinite;
+}
+@keyframes rotate { to { transform: rotate(360deg); } }
+
+/* ══════════════════════ SUCCESS ══════════════════════ */
+#success-screen {
+  display: none;
+  background: var(--card); border-radius: var(--r);
+  border: 1px solid var(--border); box-shadow: var(--shadow-lg);
+  padding: 72px 40px; text-align: center;
+  animation: fadeUp 0.5s ease both;
+}
+.success-ring {
+  width: 88px; height: 88px; border-radius: 50%;
+  background: linear-gradient(135deg, rgba(6,214,160,0.15), rgba(76,201,240,0.15));
+  border: 2px solid rgba(6,214,160,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 42px; margin: 0 auto 24px;
+  animation: pop 0.5s 0.2s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+#success-screen h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 32px; margin-bottom: 12px;
+}
+#success-screen p { color: var(--muted); font-size: 15px; line-height: 1.7; }
+#success-screen strong { color: var(--ink); }
+
+/* DECORATIVE FLOAT SHAPES */
+.float-shape {
+  position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
+  opacity: 0.4; filter: blur(1px);
+}
+.fs1 {
+  width: 12px; height: 12px;
+  background: var(--rose);
+  top: 15%; right: 8%;
+  animation: float1 8s ease-in-out infinite;
+}
+.fs2 {
+  width: 8px; height: 8px;
+  background: var(--amber);
+  top: 45%; left: 4%;
+  animation: float2 10s ease-in-out infinite;
+}
+.fs3 {
+  width: 16px; height: 16px;
+  background: var(--teal);
+  bottom: 30%; right: 6%;
+  animation: float1 12s ease-in-out infinite reverse;
+}
+@keyframes float1 {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+@keyframes float2 {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(16px) rotate(-120deg); }
+}
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════════ HERO -->
+<div class="float-shape fs1"></div>
+<div class="float-shape fs2"></div>
+<div class="float-shape fs3"></div>
+
+<!-- ═══════ HERO ═══════ -->
 <div class="hero">
-  <div class="hero-inner">
-    <div class="badge">Sau Workshop · 22/04/2026</div>
-    <h1>Khảo Sát Ý Kiến<br><span>Giảng Viên</span></h1>
-    <p style="color:rgba(255,255,255,0.65); font-size:14px; margin-top:10px; line-height:1.6;">
-      Phản hồi của thầy/cô giúp chúng tôi cải thiện chất lượng các Workshop AI tiếp theo.<br>
-      Chỉ mất khoảng <strong style="color:white">3–5 phút</strong> để hoàn thành.
-    </p>
-    <div class="hero-meta">
-      <span><span class="dot"></span> Workshop: AI or OUT – 22/04/2026</span>
-      <span><span class="dot"></span> Địa điểm: C202</span>
-      <span><span class="dot"></span> Workshop tiếp theo: 06/05/2026</span>
-    </div>
-    <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="hero-eyebrow">
+    <span class="pill pill-rose"><span class="pulse"></span>Sau Workshop · 22/04/2026</span>
+    <span class="pill pill-amber">⏱ 3–5 phút</span>
   </div>
+  <h1 class="hero-title">Khảo Sát<br>Ý Kiến <em>Giảng Viên</em></h1>
+  <p class="hero-sub">Phản hồi của thầy/cô giúp chúng tôi cải thiện chất lượng các Workshop AI tiếp theo. Mọi ý kiến đều <strong>có giá trị</strong>.</p>
+  <div class="hero-stats">
+    <div class="stat-chip"><span class="icon">🎯</span> Workshop: AI or OUT</div>
+    <div class="stat-chip"><span class="icon">📍</span> Phòng C202</div>
+    <div class="stat-chip"><span class="icon">📅</span> Tiếp theo: 06/05/2026</div>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+  <div class="progress-label"><span id="progressText">0 / 8 câu đã trả lời</span></div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════ FORM -->
+<!-- ═══════ FORM ═══════ -->
 <div class="container">
+<form id="surveyForm" novalidate>
 
+  <!-- INFO -->
+  <div class="section-divider"><span>Thông tin giảng viên</span></div>
 
-  <form id="surveyForm" novalidate>
+  <div class="card" id="card-info">
+    <div class="q-head">
+      <div class="q-badge emoji">📋</div>
+      <div class="q-title">Thông tin cá nhân <span style="font-weight:400;color:var(--muted);font-size:13px;">(tùy chọn)</span></div>
+    </div>
+    <p class="q-desc">Thông tin giúp chúng tôi phân tích phản hồi theo nhóm. Bạn có thể bỏ qua nếu muốn ẩn danh.</p>
 
-    <!-- ── THÔNG TIN GIẢNG VIÊN ── -->
-    <div class="card" id="card-info">
-      <div class="q-number">📋</div>
-      <div class="q-title">Thông tin giảng viên <span style="font-weight:400; color:var(--text-muted); font-size:13px;">(tùy chọn)</span></div>
-      <div class="q-desc">Thông tin này giúp chúng tôi phân tích phản hồi theo nhóm giảng viên. Bạn có thể bỏ qua nếu muốn ẩn danh.</div>
-      <div class="input-row" style="margin-bottom:12px;">
-        <div>
-          <div class="section-label">Họ và tên</div>
-          <input type="text" id="fullname" name="fullname" placeholder="Nguyễn Văn A">
-        </div>
-        <div>
-          <div class="section-label">Email (tùy chọn)</div>
-          <input type="email" id="email" name="email" placeholder="email@truong.edu.vn">
-        </div>
+    <div class="input-grid" style="margin-bottom:14px;">
+      <div class="field-group">
+        <label class="field-label" for="fullname">Họ và tên</label>
+        <input type="text" id="fullname" name="fullname" placeholder="Nguyễn Văn A">
       </div>
-      <div>
-        <div class="section-label">Chuyên ngành giảng dạy</div>
-        <input type="text" id="subject" name="subject" placeholder="VD: Thiết kế đồ họa, Marketing, Kiến trúc...">
+      <div class="field-group">
+        <label class="field-label" for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="email@truong.edu.vn">
       </div>
-      <div class="divider"></div>
-      <div class="section-label">Mức độ quen thuộc với AI <strong class="required">*</strong></div>
-      <div class="prereq-grid">
-        <div class="radio-pill"><input type="radio" name="ai_level" id="ai0" value="Chưa dùng bao giờ"><label for="ai0">🔰 Chưa dùng bao giờ</label></div>
-        <div class="radio-pill"><input type="radio" name="ai_level" id="ai1" value="Mới bắt đầu thử"><label for="ai1">🌱 Mới bắt đầu thử</label></div>
-        <div class="radio-pill"><input type="radio" name="ai_level" id="ai2" value="Dùng thỉnh thoảng"><label for="ai2">⚡ Dùng thỉnh thoảng</label></div>
-        <div class="radio-pill"><input type="radio" name="ai_level" id="ai3" value="Dùng thường xuyên"><label for="ai3">🚀 Dùng thường xuyên</label></div>
-      </div>
-      <div class="error-msg">Vui lòng chọn mức độ quen thuộc với AI.</div>
+    </div>
+    <div class="field-group" style="margin-bottom:20px;">
+      <label class="field-label" for="subject">Chuyên ngành giảng dạy</label>
+      <input type="text" id="subject" name="subject" placeholder="VD: Thiết kế đồ họa, Marketing, Kiến trúc...">
     </div>
 
-    <!-- ── CÂU 1 ── -->
-    <div class="card" id="card-q1">
-      <div class="q-number">1</div>
-      <div class="q-title">Tính thực tiễn của nội dung bài chia sẻ <strong class="required">*</strong></div>
-      <div class="q-desc">Thầy/cô đánh giá thế nào về mức độ thực tế của các nội dung AI mà diễn giả chia sẻ – so với xu hướng AI trong thiết kế hiện nay?</div>
-      <div class="star-section">
-        <div class="star-labels">
-          <span>⬅ Lý thuyết suông,<br>ít ứng dụng</span>
-          <span>Rất thực tế &<br>cập nhật ➡</span>
-        </div>
-        <div class="stars" id="stars-q1">
-          <input type="radio" name="q1" id="q1-5" value="5"><label for="q1-5" title="5 sao">★</label>
-          <input type="radio" name="q1" id="q1-4" value="4"><label for="q1-4" title="4 sao">★</label>
-          <input type="radio" name="q1" id="q1-3" value="3"><label for="q1-3" title="3 sao">★</label>
-          <input type="radio" name="q1" id="q1-2" value="2"><label for="q1-2" title="2 sao">★</label>
-          <input type="radio" name="q1" id="q1-1" value="1"><label for="q1-1" title="1 sao">★</label>
-        </div>
-        <div class="star-value" id="val-q1"></div>
-      </div>
-      <div class="error-msg">Vui lòng chọn mức đánh giá.</div>
+    <div class="thin-line"></div>
+
+    <div class="field-label" style="margin-bottom:12px;">Mức độ quen thuộc với AI <span class="req">*</span></div>
+    <div class="pill-grid">
+      <div class="r-pill"><input type="radio" name="ai_level" id="ai0" value="Chưa dùng bao giờ"><label for="ai0">🔰 Chưa dùng bao giờ</label></div>
+      <div class="r-pill"><input type="radio" name="ai_level" id="ai1" value="Mới bắt đầu thử"><label for="ai1">🌱 Mới bắt đầu thử</label></div>
+      <div class="r-pill"><input type="radio" name="ai_level" id="ai2" value="Dùng thỉnh thoảng"><label for="ai2">⚡ Dùng thỉnh thoảng</label></div>
+      <div class="r-pill"><input type="radio" name="ai_level" id="ai3" value="Dùng thường xuyên"><label for="ai3">🚀 Dùng thường xuyên</label></div>
     </div>
-
-    <!-- ── CÂU 2 ── -->
-    <div class="card" id="card-q2">
-      <div class="q-number">2</div>
-      <div class="q-title">Khả năng ứng dụng vào công việc / môn học / đồ án <strong class="required">*</strong></div>
-      <div class="q-desc">Sau workshop, thầy/cô thấy các công cụ và phương pháp AI được giới thiệu có khả năng ứng dụng vào công việc giảng dạy chuyên môn không?</div>
-      <div class="star-section">
-        <div class="star-labels">
-          <span>⬅ Khó áp dụng,<br>không liên quan</span>
-          <span>Rất dễ thử nghiệm<br>& áp dụng ➡</span>
-        </div>
-        <div class="stars" id="stars-q2">
-          <input type="radio" name="q2" id="q2-5" value="5"><label for="q2-5">★</label>
-          <input type="radio" name="q2" id="q2-4" value="4"><label for="q2-4">★</label>
-          <input type="radio" name="q2" id="q2-3" value="3"><label for="q2-3">★</label>
-          <input type="radio" name="q2" id="q2-2" value="2"><label for="q2-2">★</label>
-          <input type="radio" name="q2" id="q2-1" value="1"><label for="q2-1">★</label>
-        </div>
-        <div class="star-value" id="val-q2"></div>
-      </div>
-      <div class="error-msg">Vui lòng chọn mức đánh giá.</div>
-    </div>
-
-    <!-- ── CÂU 3A ── -->
-    <div class="card" id="card-q3a">
-      <div class="q-number">3a</div>
-      <div class="q-title">Hiệu quả phần thực hành – Tạo Prompt & AI tạo ảnh <strong class="required">*</strong></div>
-      <div class="q-desc">Đánh giá mức độ dễ hiểu và tính khả thi của phần hướng dẫn tạo Prompt và sử dụng AI tạo / xử lý hình ảnh.</div>
-      <div class="star-section">
-        <div class="star-labels">
-          <span>⬅ Quá phức tạp,<br>khó theo dõi</span>
-          <span>Dễ nắm bắt &<br>thực hiện được ➡</span>
-        </div>
-        <div class="stars" id="stars-q3a">
-          <input type="radio" name="q3a" id="q3a-5" value="5"><label for="q3a-5">★</label>
-          <input type="radio" name="q3a" id="q3a-4" value="4"><label for="q3a-4">★</label>
-          <input type="radio" name="q3a" id="q3a-3" value="3"><label for="q3a-3">★</label>
-          <input type="radio" name="q3a" id="q3a-2" value="2"><label for="q3a-2">★</label>
-          <input type="radio" name="q3a" id="q3a-1" value="1"><label for="q3a-1">★</label>
-        </div>
-        <div class="star-value" id="val-q3a"></div>
-      </div>
-      <div class="error-msg">Vui lòng chọn mức đánh giá.</div>
-    </div>
-
-    <!-- ── CÂU 3B ── -->
-    <div class="card" id="card-q3b">
-      <div class="q-number">3b</div>
-      <div class="q-title">Hiệu quả phần thực hành – Tự xây dựng App cá nhân <strong class="required">*</strong></div>
-      <div class="q-desc">Đánh giá mức độ dễ hiểu và tính khả thi của phần hướng dẫn GV tự xây dựng ứng dụng cá nhân phục vụ công việc.</div>
-      <div class="star-section">
-        <div class="star-labels">
-          <span>⬅ Quá phức tạp,<br>khó theo dõi</span>
-          <span>Dễ nắm bắt &<br>thực hiện được ➡</span>
-        </div>
-        <div class="stars" id="stars-q3b">
-          <input type="radio" name="q3b" id="q3b-5" value="5"><label for="q3b-5">★</label>
-          <input type="radio" name="q3b" id="q3b-4" value="4"><label for="q3b-4">★</label>
-          <input type="radio" name="q3b" id="q3b-3" value="3"><label for="q3b-3">★</label>
-          <input type="radio" name="q3b" id="q3b-2" value="2"><label for="q3b-2">★</label>
-          <input type="radio" name="q3b" id="q3b-1" value="1"><label for="q3b-1">★</label>
-        </div>
-        <div class="star-value" id="val-q3b"></div>
-      </div>
-      <div class="error-msg">Vui lòng chọn mức đánh giá.</div>
-    </div>
-
-    <!-- ── CÂU 4 ── -->
-    <div class="card" id="card-q4">
-      <div class="q-number">4</div>
-      <div class="q-title">Năng lực và sự tương tác của Diễn giả <strong class="required">*</strong></div>
-      <div class="q-desc">Mức độ hài lòng của thầy/cô về chuyên môn, cách truyền đạt và khả năng giải đáp thắc mắc của người hướng dẫn (Thầy Duy Đông).</div>
-      <div class="star-section">
-        <div class="star-labels">
-          <span>⬅ Kém thu hút,<br>khó hiểu</span>
-          <span>Rất chuyên nghiệp<br>& truyền cảm hứng ➡</span>
-        </div>
-        <div class="stars" id="stars-q4">
-          <input type="radio" name="q4" id="q4-5" value="5"><label for="q4-5">★</label>
-          <input type="radio" name="q4" id="q4-4" value="4"><label for="q4-4">★</label>
-          <input type="radio" name="q4" id="q4-3" value="3"><label for="q4-3">★</label>
-          <input type="radio" name="q4" id="q4-2" value="2"><label for="q4-2">★</label>
-          <input type="radio" name="q4" id="q4-1" value="1"><label for="q4-1">★</label>
-        </div>
-        <div class="star-value" id="val-q4"></div>
-      </div>
-      <div class="error-msg">Vui lòng chọn mức đánh giá.</div>
-    </div>
-
-    <!-- ── CÂU 5 ── -->
-    <div class="card" id="card-q5">
-      <div class="q-number">5</div>
-      <div class="q-title">Công tác tổ chức & Trải nghiệm Workshop <strong class="required">*</strong></div>
-      <div class="q-desc">Đánh giá tổng quan về thời lượng (10g00–12g00), địa điểm (C202), hạ tầng và thiết bị: máy chiếu, wifi...</div>
-      <div class="star-section">
-        <div class="star-labels">
-          <span>⬅ Chưa tốt,<br>cần cải thiện nhiều</span>
-          <span>Rất chuyên nghiệp<br>& chu đáo ➡</span>
-        </div>
-        <div class="stars" id="stars-q5">
-          <input type="radio" name="q5" id="q5-5" value="5"><label for="q5-5">★</label>
-          <input type="radio" name="q5" id="q5-4" value="4"><label for="q5-4">★</label>
-          <input type="radio" name="q5" id="q5-3" value="3"><label for="q5-3">★</label>
-          <input type="radio" name="q5" id="q5-2" value="2"><label for="q5-2">★</label>
-          <input type="radio" name="q5" id="q5-1" value="1"><label for="q5-1">★</label>
-        </div>
-        <div class="star-value" id="val-q5"></div>
-      </div>
-      <div class="error-msg">Vui lòng chọn mức đánh giá.</div>
-    </div>
-
-    <!-- ── CÂU 6 ── -->
-    <div class="card" id="card-q6">
-      <div class="q-number">6</div>
-      <div class="q-title">Bạn có muốn tham gia Workshop tiếp theo không? <strong class="required">*</strong></div>
-      <div class="q-desc">Workshop tiếp theo dự kiến tổ chức ngày 06/05/2026.</div>
-      <div class="prereq-grid">
-        <div class="radio-pill"><input type="radio" name="q6" id="q6-yes" value="Chắc chắn có"><label for="q6-yes">✅ Chắc chắn có</label></div>
-        <div class="radio-pill"><input type="radio" name="q6" id="q6-maybe" value="Có thể tham gia"><label for="q6-maybe">🤔 Có thể tham gia</label></div>
-        <div class="radio-pill"><input type="radio" name="q6" id="q6-no" value="Chưa chắc"><label for="q6-no">⏳ Chưa chắc</label></div>
-        <div class="radio-pill"><input type="radio" name="q6" id="q6-no2" value="Không tham gia"><label for="q6-no2">❌ Không tham gia</label></div>
-      </div>
-      <div class="error-msg">Vui lòng chọn một lựa chọn.</div>
-    </div>
-
-    <!-- ── CÂU 7 ── -->
-    <div class="card" id="card-q7">
-      <div class="q-number">7</div>
-      <div class="q-title">Góp ý & Đề xuất cho Workshop tiếp theo</div>
-      <div class="q-desc">
-        Thầy/cô muốn thay đổi hoặc bổ sung gì cho buổi Workshop tiếp theo (dự kiến 06/05/2026)?<br>
-        <em style="font-size:12px; color:#9998a8;">Gợi ý: nội dung muốn học thêm · công cụ AI muốn khám phá · thời lượng phù hợp hơn · cải thiện về tổ chức...</em>
-      </div>
-      <textarea id="q7" name="q7" placeholder="Nhập góp ý của thầy/cô tại đây..."></textarea>
-    </div>
-
-    <!-- ── SUBMIT ── -->
-    <div class="submit-wrap">
-      <button type="submit" class="btn-submit" id="submitBtn">Gửi khảo sát</button>
-      <div class="submit-note">Phản hồi của bạn được ghi nhận và bảo mật.</div>
-    </div>
-
-  </form>
-
-  <!-- ── SUCCESS ── -->
-  <div id="success-screen">
-    <div class="success-icon">✅</div>
-    <h2>Cảm ơn thầy/cô!</h2>
-    <p>Phản hồi của thầy/cô đã được ghi nhận thành công.<br>
-    Chúng tôi sẽ cố gắng cải thiện Workshop tiếp theo vào <strong>06/05/2026</strong>.</p>
+    <div class="err">Vui lòng chọn mức độ quen thuộc với AI.</div>
   </div>
+
+  <!-- RATINGS -->
+  <div class="section-divider"><span>Đánh giá nội dung</span></div>
+
+  <!-- Q1 -->
+  <div class="card" id="card-q1">
+    <div class="q-head">
+      <div class="q-badge">1</div>
+      <div class="q-title">Tính thực tiễn của nội dung bài chia sẻ <span class="req">*</span></div>
+    </div>
+    <p class="q-desc">Thầy/cô đánh giá thế nào về mức độ thực tế của các nội dung AI mà diễn giả chia sẻ – so với xu hướng AI trong thiết kế hiện nay?</p>
+    <div class="star-wrap">
+      <div class="star-endpoints">
+        <span>Lý thuyết suông,<br>ít ứng dụng</span>
+        <span>Rất thực tế<br>& cập nhật</span>
+      </div>
+      <div class="stars" id="stars-q1">
+        <input type="radio" name="q1" id="q1-5" value="5"><label for="q1-5">★</label>
+        <input type="radio" name="q1" id="q1-4" value="4"><label for="q1-4">★</label>
+        <input type="radio" name="q1" id="q1-3" value="3"><label for="q1-3">★</label>
+        <input type="radio" name="q1" id="q1-2" value="2"><label for="q1-2">★</label>
+        <input type="radio" name="q1" id="q1-1" value="1"><label for="q1-1">★</label>
+      </div>
+      <div class="star-feedback" id="val-q1"></div>
+    </div>
+    <div class="err">Vui lòng chọn mức đánh giá.</div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="card" id="card-q2">
+    <div class="q-head">
+      <div class="q-badge">2</div>
+      <div class="q-title">Khả năng ứng dụng vào công việc / môn học / đồ án <span class="req">*</span></div>
+    </div>
+    <p class="q-desc">Sau workshop, thầy/cô thấy các công cụ và phương pháp AI được giới thiệu có khả năng ứng dụng vào công việc giảng dạy chuyên môn không?</p>
+    <div class="star-wrap">
+      <div class="star-endpoints">
+        <span>Khó áp dụng,<br>không liên quan</span>
+        <span>Rất dễ thử nghiệm<br>& áp dụng</span>
+      </div>
+      <div class="stars" id="stars-q2">
+        <input type="radio" name="q2" id="q2-5" value="5"><label for="q2-5">★</label>
+        <input type="radio" name="q2" id="q2-4" value="4"><label for="q2-4">★</label>
+        <input type="radio" name="q2" id="q2-3" value="3"><label for="q2-3">★</label>
+        <input type="radio" name="q2" id="q2-2" value="2"><label for="q2-2">★</label>
+        <input type="radio" name="q2" id="q2-1" value="1"><label for="q2-1">★</label>
+      </div>
+      <div class="star-feedback" id="val-q2"></div>
+    </div>
+    <div class="err">Vui lòng chọn mức đánh giá.</div>
+  </div>
+
+  <!-- Q3a -->
+  <div class="card" id="card-q3a">
+    <div class="q-head">
+      <div class="q-badge">3a</div>
+      <div class="q-title">Thực hành – Tạo Prompt & AI tạo ảnh <span class="req">*</span></div>
+    </div>
+    <p class="q-desc">Đánh giá mức độ dễ hiểu và tính khả thi của phần hướng dẫn tạo Prompt và sử dụng AI tạo / xử lý hình ảnh.</p>
+    <div class="star-wrap">
+      <div class="star-endpoints">
+        <span>Quá phức tạp,<br>khó theo dõi</span>
+        <span>Dễ nắm bắt<br>& thực hiện được</span>
+      </div>
+      <div class="stars" id="stars-q3a">
+        <input type="radio" name="q3a" id="q3a-5" value="5"><label for="q3a-5">★</label>
+        <input type="radio" name="q3a" id="q3a-4" value="4"><label for="q3a-4">★</label>
+        <input type="radio" name="q3a" id="q3a-3" value="3"><label for="q3a-3">★</label>
+        <input type="radio" name="q3a" id="q3a-2" value="2"><label for="q3a-2">★</label>
+        <input type="radio" name="q3a" id="q3a-1" value="1"><label for="q3a-1">★</label>
+      </div>
+      <div class="star-feedback" id="val-q3a"></div>
+    </div>
+    <div class="err">Vui lòng chọn mức đánh giá.</div>
+  </div>
+
+  <!-- Q3b -->
+  <div class="card" id="card-q3b">
+    <div class="q-head">
+      <div class="q-badge">3b</div>
+      <div class="q-title">Thực hành – Tự xây dựng App cá nhân <span class="req">*</span></div>
+    </div>
+    <p class="q-desc">Đánh giá mức độ dễ hiểu và tính khả thi của phần hướng dẫn GV tự xây dựng ứng dụng cá nhân phục vụ công việc.</p>
+    <div class="star-wrap">
+      <div class="star-endpoints">
+        <span>Quá phức tạp,<br>khó theo dõi</span>
+        <span>Dễ nắm bắt<br>& thực hiện được</span>
+      </div>
+      <div class="stars" id="stars-q3b">
+        <input type="radio" name="q3b" id="q3b-5" value="5"><label for="q3b-5">★</label>
+        <input type="radio" name="q3b" id="q3b-4" value="4"><label for="q3b-4">★</label>
+        <input type="radio" name="q3b" id="q3b-3" value="3"><label for="q3b-3">★</label>
+        <input type="radio" name="q3b" id="q3b-2" value="2"><label for="q3b-2">★</label>
+        <input type="radio" name="q3b" id="q3b-1" value="1"><label for="q3b-1">★</label>
+      </div>
+      <div class="star-feedback" id="val-q3b"></div>
+    </div>
+    <div class="err">Vui lòng chọn mức đánh giá.</div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="card" id="card-q4">
+    <div class="q-head">
+      <div class="q-badge">4</div>
+      <div class="q-title">Năng lực và sự tương tác của Diễn giả <span class="req">*</span></div>
+    </div>
+    <p class="q-desc">Mức độ hài lòng của thầy/cô về chuyên môn, cách truyền đạt và khả năng giải đáp thắc mắc của người hướng dẫn (Thầy Duy Đông).</p>
+    <div class="star-wrap">
+      <div class="star-endpoints">
+        <span>Kém thu hút,<br>khó hiểu</span>
+        <span>Rất chuyên nghiệp<br>& truyền cảm hứng</span>
+      </div>
+      <div class="stars" id="stars-q4">
+        <input type="radio" name="q4" id="q4-5" value="5"><label for="q4-5">★</label>
+        <input type="radio" name="q4" id="q4-4" value="4"><label for="q4-4">★</label>
+        <input type="radio" name="q4" id="q4-3" value="3"><label for="q4-3">★</label>
+        <input type="radio" name="q4" id="q4-2" value="2"><label for="q4-2">★</label>
+        <input type="radio" name="q4" id="q4-1" value="1"><label for="q4-1">★</label>
+      </div>
+      <div class="star-feedback" id="val-q4"></div>
+    </div>
+    <div class="err">Vui lòng chọn mức đánh giá.</div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="card" id="card-q5">
+    <div class="q-head">
+      <div class="q-badge">5</div>
+      <div class="q-title">Công tác tổ chức & Trải nghiệm Workshop <span class="req">*</span></div>
+    </div>
+    <p class="q-desc">Đánh giá tổng quan về thời lượng (10g00–12g00), địa điểm (C202), hạ tầng và thiết bị: máy chiếu, wifi...</p>
+    <div class="star-wrap">
+      <div class="star-endpoints">
+        <span>Chưa tốt,<br>cần cải thiện nhiều</span>
+        <span>Rất chuyên nghiệp<br>& chu đáo</span>
+      </div>
+      <div class="stars" id="stars-q5">
+        <input type="radio" name="q5" id="q5-5" value="5"><label for="q5-5">★</label>
+        <input type="radio" name="q5" id="q5-4" value="4"><label for="q5-4">★</label>
+        <input type="radio" name="q5" id="q5-3" value="3"><label for="q5-3">★</label>
+        <input type="radio" name="q5" id="q5-2" value="2"><label for="q5-2">★</label>
+        <input type="radio" name="q5" id="q5-1" value="1"><label for="q5-1">★</label>
+      </div>
+      <div class="star-feedback" id="val-q5"></div>
+    </div>
+    <div class="err">Vui lòng chọn mức đánh giá.</div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="section-divider"><span>Tham gia tiếp theo</span></div>
+
+  <div class="card" id="card-q6">
+    <div class="q-head">
+      <div class="q-badge">6</div>
+      <div class="q-title">Bạn có muốn tham gia Workshop tiếp theo không? <span class="req">*</span></div>
+    </div>
+    <p class="q-desc">Workshop tiếp theo dự kiến tổ chức ngày 06/05/2026.</p>
+    <div class="pill-grid">
+      <div class="r-pill"><input type="radio" name="q6" id="q6-yes" value="Chắc chắn có"><label for="q6-yes">✅ Chắc chắn có</label></div>
+      <div class="r-pill"><input type="radio" name="q6" id="q6-maybe" value="Có thể tham gia"><label for="q6-maybe">🤔 Có thể tham gia</label></div>
+      <div class="r-pill"><input type="radio" name="q6" id="q6-no" value="Chưa chắc"><label for="q6-no">⏳ Chưa chắc</label></div>
+      <div class="r-pill"><input type="radio" name="q6" id="q6-no2" value="Không tham gia"><label for="q6-no2">❌ Không tham gia</label></div>
+    </div>
+    <div class="err">Vui lòng chọn một lựa chọn.</div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="section-divider"><span>Góp ý</span></div>
+
+  <div class="card" id="card-q7">
+    <div class="q-head">
+      <div class="q-badge">7</div>
+      <div class="q-title">Góp ý & Đề xuất cho Workshop tiếp theo</div>
+    </div>
+    <p class="q-desc">Thầy/cô muốn thay đổi hoặc bổ sung gì cho buổi Workshop tiếp theo (dự kiến 06/05/2026)?</p>
+    <textarea id="q7" name="q7" placeholder="Chia sẻ suy nghĩ của thầy/cô tại đây..."></textarea>
+    <div class="hint">💡 Gợi ý: nội dung muốn học thêm · công cụ AI muốn khám phá · thời lượng phù hợp hơn · cải thiện về tổ chức...</div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-area">
+    <button type="submit" class="btn-submit" id="submitBtn">
+      <span class="btn-label">Gửi khảo sát →</span>
+    </button>
+    <div class="submit-note">Phản hồi được bảo mật và không chia sẻ ra ngoài</div>
+  </div>
+
+</form>
+
+<!-- SUCCESS -->
+<div id="success-screen">
+  <div class="success-ring">✅</div>
+  <h2>Cảm ơn thầy/cô!</h2>
+  <p>Phản hồi của thầy/cô đã được ghi nhận thành công.<br>
+  Chúng tôi sẽ cố gắng cải thiện Workshop tiếp theo vào <strong>06/05/2026</strong>.</p>
+</div>
 
 </div><!-- /container -->
 
@@ -487,24 +707,38 @@
    BƯỚC 2: Dán đoạn code bên dưới vào Apps Script:
    ─────────────────────────────────────────────────────────────────
    function doPost(e) {
-     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-     var data = JSON.parse(e.postData.contents);
-     var headers = [
-       "Thời gian","Họ tên","Email","Chuyên ngành","Mức độ AI",
-       "Q1 Thực tiễn","Q2 Ứng dụng","Q3a Prompt & Ảnh",
-       "Q3b App cá nhân","Q4 Diễn giả","Q5 Tổ chức",
-       "Q6 Tham gia tiếp","Q7 Góp ý"
-     ];
-     if (sheet.getLastRow() === 0) sheet.appendRow(headers);
-     sheet.appendRow([
-       new Date().toLocaleString("vi-VN"),
-       data.fullname, data.email, data.subject, data.ai_level,
-       data.q1, data.q2, data.q3a, data.q3b,
-       data.q4, data.q5, data.q6, data.q7
-     ]);
-     return ContentService
-       .createTextOutput(JSON.stringify({status:"ok"}))
-       .setMimeType(ContentService.MimeType.JSON);
+     try {
+       var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+       var data = JSON.parse(e.postData.contents);
+       var headers = [
+         "Thời gian","Họ tên","Email","Chuyên ngành","Mức độ AI",
+         "Q1 Thực tiễn","Q2 Ứng dụng","Q3a Prompt & Ảnh",
+         "Q3b App cá nhân","Q4 Diễn giả","Q5 Tổ chức",
+         "Q6 Tham gia tiếp","Q7 Góp ý"
+       ];
+       if (sheet.getLastRow() === 0) sheet.appendRow(headers);
+       sheet.appendRow([
+         new Date().toLocaleString("vi-VN"),
+         data.fullname, data.email, data.subject, data.ai_level,
+         data.q1, data.q2, data.q3a, data.q3b,
+         data.q4, data.q5, data.q6, data.q7
+       ]);
+       return ContentService
+         .createTextOutput(JSON.stringify({status:"ok"}))
+         .setMimeType(ContentService.MimeType.JSON);
+     } catch(err) {
+       return ContentService
+         .createTextOutput(JSON.stringify({status:"error", message: err.toString()}))
+         .setMimeType(ContentService.MimeType.JSON);
+     }
+   }
+   function testDoPost() {
+     var fakeEvent = { postData: { contents: JSON.stringify({
+       fullname:"Test GV", email:"test@test.com", subject:"Thiết kế",
+       ai_level:"Mới bắt đầu thử", q1:"4", q2:"5", q3a:"3", q3b:"4",
+       q4:"5", q5:"4", q6:"Chắc chắn có", q7:"Góp ý test"
+     }) } };
+     Logger.log(doPost(fakeEvent).getContent());
    }
    ─────────────────────────────────────────────────────────────────
    BƯỚC 3: Deploy → New deployment → Web app
@@ -514,72 +748,69 @@
 
   const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxW1osNyyV4wONzm5bTwl2K8wG5XVW7dKXh6wRaa91W0NGT2azz33L9qK-moLe0k2O64g/exec";
 
-  /* ─── STAR LABELS ─── */
-  const starDescriptions = {
-    q1:  ["", "Lý thuyết suông, không thực tế", "Còn nhiều lý thuyết", "Tương đối thực tế", "Khá thực tế & cập nhật", "Rất thực tế & cập nhật ✨"],
-    q2:  ["", "Rất khó áp dụng", "Khó áp dụng", "Có thể áp dụng được", "Khá dễ áp dụng", "Rất dễ thử nghiệm & áp dụng ✨"],
-    q3a: ["", "Quá phức tạp, không theo được", "Còn khó hiểu", "Tương đối dễ hiểu", "Khá dễ nắm bắt", "Rất dễ nắm bắt & thực hiện ✨"],
-    q3b: ["", "Quá phức tạp, không theo được", "Còn khó hiểu", "Tương đối dễ hiểu", "Khá dễ nắm bắt", "Rất dễ nắm bắt & thực hiện ✨"],
-    q4:  ["", "Kém thu hút, khó hiểu", "Chưa ấn tượng lắm", "Truyền đạt ổn", "Khá chuyên nghiệp", "Rất chuyên nghiệp & truyền cảm hứng ✨"],
-    q5:  ["", "Chưa tốt, nhiều vấn đề", "Còn một số thiếu sót", "Tổ chức ổn", "Khá chu đáo", "Rất chuyên nghiệp & chu đáo ✨"],
+  /* ── STAR LABELS ── */
+  const starText = {
+    q1:  ["","Lý thuyết suông","Còn nhiều lý thuyết","Tương đối thực tế","Khá thực tế & cập nhật","Rất thực tế & cập nhật ✨"],
+    q2:  ["","Rất khó áp dụng","Khó áp dụng","Có thể áp dụng","Khá dễ áp dụng","Rất dễ thử nghiệm & áp dụng ✨"],
+    q3a: ["","Quá phức tạp","Còn khó hiểu","Tương đối dễ hiểu","Khá dễ nắm bắt","Rất dễ nắm bắt & thực hiện ✨"],
+    q3b: ["","Quá phức tạp","Còn khó hiểu","Tương đối dễ hiểu","Khá dễ nắm bắt","Rất dễ nắm bắt & thực hiện ✨"],
+    q4:  ["","Kém thu hút","Chưa ấn tượng","Truyền đạt ổn","Khá chuyên nghiệp","Rất chuyên nghiệp & cảm hứng ✨"],
+    q5:  ["","Chưa tốt","Còn thiếu sót","Tổ chức ổn","Khá chu đáo","Rất chuyên nghiệp & chu đáo ✨"],
   };
+  const starColor = ["","#e94560","#f08a4b","#f5c542","#7bc47f","#06d6a0"];
 
-  /* ─── BIND STARS ─── */
+  /* ── BIND STARS ── */
   ['q1','q2','q3a','q3b','q4','q5'].forEach(name => {
-    const inputs = document.querySelectorAll(`input[name="${name}"]`);
-    const valEl = document.getElementById(`val-${name}`);
-    inputs.forEach(inp => {
+    document.querySelectorAll(`input[name="${name}"]`).forEach(inp => {
       inp.addEventListener('change', () => {
         const v = parseInt(inp.value);
-        valEl.textContent = `${v}/5 – ${starDescriptions[name][v]}`;
-        valEl.style.color = v >= 4 ? '#27ae60' : v === 3 ? '#f5a623' : '#e94560';
+        const el = document.getElementById(`val-${name}`);
+        el.innerHTML = `<span style="font-size:13px">★</span> ${v}/5 &mdash; ${starText[name][v]}`;
+        el.style.color = starColor[v];
         document.getElementById(`card-${name}`).classList.remove('has-error');
         updateProgress();
       });
     });
   });
 
-  /* ─── PROGRESS ─── */
-  const required = ['ai_level','q1','q2','q3a','q3b','q4','q5','q6'];
+  /* ── PROGRESS ── */
+  const REQUIRED = ['ai_level','q1','q2','q3a','q3b','q4','q5','q6'];
   function updateProgress() {
-    let filled = 0;
-    required.forEach(name => {
-      const el = document.querySelector(`input[name="${name}"]:checked`);
-      if (el) filled++;
-    });
-    document.getElementById('progressBar').style.width = `${(filled/required.length)*100}%`;
+    const filled = REQUIRED.filter(n => document.querySelector(`input[name="${n}"]:checked`)).length;
+    document.getElementById('progressBar').style.width = `${(filled/REQUIRED.length)*100}%`;
+    document.getElementById('progressText').textContent = `${filled} / ${REQUIRED.length} câu đã trả lời`;
   }
 
   document.querySelectorAll('input[type="radio"]').forEach(r =>
     r.addEventListener('change', () => {
-      const card = r.closest('.card');
-      if (card) card.classList.remove('has-error');
+      r.closest('.card')?.classList.remove('has-error');
       updateProgress();
     })
   );
 
-  /* ─── VALIDATE ─── */
+  /* ── VALIDATE ── */
   function validate() {
     let ok = true;
-    required.forEach(name => {
-      const card = document.getElementById(`card-${name === 'ai_level' ? 'info' : name}`);
-      const checked = document.querySelector(`input[name="${name}"]:checked`);
-      if (!checked && card) { card.classList.add('has-error'); ok = false; }
+    REQUIRED.forEach(name => {
+      const cardId = name === 'ai_level' ? 'card-info' : `card-${name}`;
+      if (!document.querySelector(`input[name="${name}"]:checked`)) {
+        document.getElementById(cardId)?.classList.add('has-error');
+        ok = false;
+      }
     });
     return ok;
   }
 
-  /* ─── SUBMIT ─── */
+  /* ── SUBMIT ── */
   document.getElementById('surveyForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!validate()) {
       document.querySelector('.card.has-error')?.scrollIntoView({behavior:'smooth', block:'center'});
       return;
     }
-
     const btn = document.getElementById('submitBtn');
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>Đang gửi...';
+    btn.innerHTML = '<span class="spin"></span><span class="btn-label">Đang gửi...</span>';
 
     const payload = {
       fullname:  document.getElementById('fullname').value.trim(),
@@ -596,25 +827,22 @@
       q7:  document.getElementById('q7').value.trim(),
     };
 
-    /* Nếu chưa cấu hình URL → demo mode */
     if (GOOGLE_SCRIPT_URL.includes('THAY_THE_BANG_URL')) {
-      await new Promise(r => setTimeout(r, 1200)); // giả lập delay
-      showSuccess();
-      return;
+      await new Promise(r => setTimeout(r, 1200));
+      showSuccess(); return;
     }
 
     try {
       await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        method:'POST', mode:'no-cors',
+        headers:{'Content-Type':'application/json'},
         body: JSON.stringify(payload)
       });
       showSuccess();
-    } catch (err) {
+    } catch {
       btn.disabled = false;
-      btn.textContent = 'Gửi khảo sát';
-      alert('Gửi thất bại. Vui lòng thử lại hoặc kiểm tra kết nối mạng.');
+      btn.innerHTML = '<span class="btn-label">Gửi khảo sát →</span>';
+      alert('Gửi thất bại. Vui lòng thử lại.');
     }
   });
 
@@ -622,7 +850,8 @@
     document.getElementById('surveyForm').style.display = 'none';
     document.getElementById('success-screen').style.display = 'block';
     document.getElementById('progressBar').style.width = '100%';
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    document.getElementById('progressText').textContent = '8 / 8 câu đã trả lời ✓';
+    window.scrollTo({top:0, behavior:'smooth'});
   }
 </script>
 </body>
