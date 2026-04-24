@@ -271,12 +271,6 @@
 <!-- ═══════════════════════════════════════════════════════ FORM -->
 <div class="container">
 
-  <!-- CONFIG BANNER -->
-  <div class="config-banner" id="configBanner">
-    ⚙️ <strong>Hướng dẫn kết nối Google Sheets:</strong>
-    Thay thế giá trị <code>GOOGLE_SCRIPT_URL</code> ở cuối file bằng URL của Google Apps Script. 
-    Xem hướng dẫn chi tiết trong phần comment của mã nguồn.
-  </div>
 
   <form id="surveyForm" novalidate>
 
@@ -626,7 +620,6 @@
 
   function showSuccess() {
     document.getElementById('surveyForm').style.display = 'none';
-    document.getElementById('configBanner').style.display = 'none';
     document.getElementById('success-screen').style.display = 'block';
     document.getElementById('progressBar').style.width = '100%';
     window.scrollTo({top: 0, behavior: 'smooth'});
